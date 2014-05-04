@@ -1,0 +1,28 @@
+{
+  "name": "nfd-sdk",
+  "description": "nearForm command protocol client",
+  "keywords": [
+    "nearForm",
+    "deployer",
+    "command",
+    "protocol"
+  ],
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Peter Elger (http://nearform.com/)",
+  "contributors": [
+    "Peter Elger <elger.peter@gmail.com> (http://peterelger.com/)"
+  ],
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "pelger-cbt": "0.0.1"
+  },
+  "main": "lib/main",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pelger/nfd-sdk.git"
+  },
+  "devDependencies": {}
+}
