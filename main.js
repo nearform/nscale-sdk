@@ -16,6 +16,7 @@
 
 var net = require('net');
 var cbt = require('pelger-cbt')();
+var _ = require('underscore');
 
 
 
@@ -24,6 +25,8 @@ var cbt = require('pelger-cbt')();
  */
 module.exports = function() {
   var _client;
+  var _stdoutCb;
+  var _stderrCb;
 
   var connect = function(options, cb) {
     _client = net.connect(options, function() {
@@ -32,13 +35,33 @@ module.exports = function() {
 
     _client.on('data', function(data) {
       var str = data.toString('utf8');
+      var lines;
       var callback;
       var json;
 
-      json = JSON.parse(str);
-      callback = cbt.fetch(json.request);
-      callback(json);
+      lines = str.split('\n');
+      _.each(lines, function(line) {
+        if (line.length > 0) {
+          json = JSON.parse(line);
+
+          if (json.responseType === 'stdout') {
+            if (_stdoutCb) {
+              _stdoutCb(json.stdout);
+            }
+          }
+          else if (json.responseType === 'stderr') {
+            if (_stderrCb) {
+              _stderrCb(json.stderr);
+            }
+          }
+          else if (json.responseType === 'response') {
+            callback = cbt.fetch(json.request);
+            callback(json.response);
+          }
+        }
+      });
     });
+
 
     _client.on('end', function() {
       var callback = cbt.fetch('quit');
@@ -63,17 +86,35 @@ module.exports = function() {
   };
 
 
+
+  var buildContainer = function(systemId, containerId, cb) {
+    cbt.trackById('build container', cb);
+    _client.write('build container ' + systemId + ' ' + containerId + '\n');
+  };
+
+
+
+  var ioHandlers = function(stdoutCb, stderrCb) {
+    _stdoutCb = stdoutCb;
+    _stderrCb = stderrCb;
+  };
+
+
+
   var quit = function(cb) {
     cbt.trackById('quit', cb);
     _client.write('quit\n');
   };
 
 
+
   return {
     connect: connect,
     quit: quit,
     listSystems: listSystems,
-    listContainers: listContainers
+    listContainers: listContainers,
+    buildContainer: buildContainer,
+    ioHandlers: ioHandlers
   };
 };
 
