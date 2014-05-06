@@ -42,7 +42,10 @@ module.exports = function() {
       lines = str.split('\n');
       _.each(lines, function(line) {
         if (line.length > 0) {
+          debugger;
           json = JSON.parse(line);
+
+          console.log(line);
 
           if (json.responseType === 'stdout') {
             if (_stdoutCb) {
@@ -64,10 +67,12 @@ module.exports = function() {
 
 
     _client.on('end', function() {
+      /*
       var callback = cbt.fetch('quit');
       if (callback) {
         callback();
       }
+      */
     });
   };
 
