@@ -42,7 +42,6 @@ module.exports = function() {
       lines = str.split('\n');
       _.each(lines, function(line) {
         if (line.length > 0) {
-          debugger;
           json = JSON.parse(line);
 
           console.log(line);
@@ -99,9 +98,9 @@ module.exports = function() {
 
 
 
-  var ioHandlers = function(stdoutCb, stderrCb) {
-    _stdoutCb = stdoutCb;
-    _stderrCb = stderrCb;
+  var deployContainer = function(systemId, containerId, cb) {
+    cbt.trackById('deploy container', cb);
+    _client.write('deploy container ' + systemId + ' ' + containerId + '\n');
   };
 
 
@@ -113,12 +112,20 @@ module.exports = function() {
 
 
 
+  var ioHandlers = function(stdoutCb, stderrCb) {
+    _stdoutCb = stdoutCb;
+    _stderrCb = stderrCb;
+  };
+
+
+
   return {
     connect: connect,
     quit: quit,
     listSystems: listSystems,
     listContainers: listContainers,
     buildContainer: buildContainer,
+    deployContainer: deployContainer,
     ioHandlers: ioHandlers
   };
 };
