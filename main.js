@@ -44,8 +44,6 @@ module.exports = function() {
         if (line.length > 0) {
           json = JSON.parse(line);
 
-          console.log(line);
-
           if (json.responseType === 'stdout') {
             if (_stdoutCb) {
               _stdoutCb(json.stdout);
@@ -64,14 +62,7 @@ module.exports = function() {
       });
     });
 
-
     _client.on('end', function() {
-      /*
-      var callback = cbt.fetch('quit');
-      if (callback) {
-        callback();
-      }
-      */
     });
   };
 
@@ -80,6 +71,29 @@ module.exports = function() {
   var listSystems = function(cb) {
     cbt.trackById('list systems', cb);
     _client.write('list systems\n');
+  };
+
+
+
+  var createSystem = function(name, namespace, cb) {
+    cbt.trackById('create system', cb);
+    _client.write('create system ' + name + ' ' + namespace + '\n');
+  };
+
+
+
+  var getSystem = function(systemId, cb) {
+    cbt.trackById('get system', cb);
+    _client.write('get system ' + systemId + '\n');
+  };
+
+
+
+  var putSystem = function(systemJson, cb) {
+    cbt.trackById('put system', cb);
+    _client.write('put system\n');
+    _client.write(systemJson + '\n');
+    _client.write('END\n');
   };
 
 
@@ -122,7 +136,10 @@ module.exports = function() {
   return {
     connect: connect,
     quit: quit,
+    createSystem: createSystem,
     listSystems: listSystems,
+    getSystem: getSystem,
+    putSystem: putSystem,
     listContainers: listContainers,
     buildContainer: buildContainer,
     deployContainer: deployContainer,
