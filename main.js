@@ -89,6 +89,13 @@ module.exports = function() {
 
 
 
+  var deleteSystem = function(systemId, cb) {
+    cbt.trackById('delete system', cb);
+    _client.write('delete system ' + systemId + '\n');
+  };
+
+
+
   var putSystem = function(systemJson, cb) {
     cbt.trackById('put system', cb);
     _client.write('put system\n');
@@ -101,6 +108,31 @@ module.exports = function() {
   var listContainers = function(systemId, cb) {
     cbt.trackById('list containers', cb);
     _client.write('list containers ' + systemId + '\n');
+  };
+
+
+
+  var addContainer = function(systemId, containerJson, cb) {
+    cbt.trackById('add container', cb);
+    _client.write('add container ' + systemId + '\n');
+    _client.write(containerJson + '\n');
+    _client.write('END\n');
+  };
+
+
+
+  var putContainer = function(systemId, containerJson, cb) {
+    cbt.trackById('put container', cb);
+    _client.write('put container ' + systemId + '\n');
+    _client.write(containerJson + '\n');
+    _client.write('END\n');
+  };
+
+
+
+  var deleteContainer = function(systemId, containerId, cb) {
+    cbt.trackById('delete container', cb);
+    _client.write('delete container ' + systemId + ' ' + containerId + '\n');
   };
 
 
@@ -140,6 +172,11 @@ module.exports = function() {
     listSystems: listSystems,
     getSystem: getSystem,
     putSystem: putSystem,
+    deleteSystem: deleteSystem,
+
+    putContainer: putContainer,
+    deleteContainer: deleteContainer,
+    addContainer: addContainer,
     listContainers: listContainers,
     buildContainer: buildContainer,
     deployContainer: deployContainer,
