@@ -151,6 +151,20 @@ module.exports = function() {
 
 
 
+  var listRevisions = function(systemId, cb) {
+    cbt.trackById('list revisions', cb);
+    _client.write('list revisions ' + systemId + '\n');
+  };
+
+
+
+  var getRevision = function(systemId, revisionId, cb) {
+    cbt.trackById('get revision ', cb);
+    _client.write('get revision ' + systemId + ' ' + revisionId + '\n');
+  };
+
+
+
   var quit = function(cb) {
     cbt.trackById('quit', cb);
     _client.write('quit\n');
@@ -180,7 +194,10 @@ module.exports = function() {
     listContainers: listContainers,
     buildContainer: buildContainer,
     deployContainer: deployContainer,
-    ioHandlers: ioHandlers
+    ioHandlers: ioHandlers,
+
+    listRevisions: listRevisions,
+    getRevision: getRevision
   };
 };
 
