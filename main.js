@@ -172,6 +172,22 @@ module.exports = function() {
 
 
 
+  var timeline = function(user, systemId, containerId, cb) {
+    cbt.trackById('list timeline', cb);
+    _client.write('list timeline ' + user + ' ' + systemId + ' ' + containerId + '\n');
+  };
+
+
+
+  var addToTimeline = function(timelineJson, cb) {
+    cbt.trackById('add timeline', cb);
+    _client.write('add timeline\n');
+    _client.write(timelineJson + '\n');
+    _client.write('END\n');
+  };
+
+
+
   var quit = function(cb) {
     cbt.trackById('quit', cb);
     _client.write('quit\n');
@@ -205,7 +221,10 @@ module.exports = function() {
     ioHandlers: ioHandlers,
 
     listRevisions: listRevisions,
-    getRevision: getRevision
+    getRevision: getRevision,
+
+    timeline: timeline,
+    addToTimeline: addToTimeline
   };
 };
 
