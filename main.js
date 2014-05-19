@@ -151,6 +151,13 @@ module.exports = function() {
 
 
 
+  var deployAll = function(systemId, cb) {
+    cbt.trackById('deploy all', cb);
+    _client.write('deploy all ' + systemId + '\n');
+  };
+
+
+
   var listRevisions = function(systemId, cb) {
     cbt.trackById('list revisions', cb);
     _client.write('list revisions ' + systemId + '\n');
@@ -194,6 +201,7 @@ module.exports = function() {
     listContainers: listContainers,
     buildContainer: buildContainer,
     deploySystem: deploySystem,
+    deployAll: deployAll,
     ioHandlers: ioHandlers,
 
     listRevisions: listRevisions,
