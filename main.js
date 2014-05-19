@@ -172,9 +172,9 @@ module.exports = function() {
 
 
 
-  var timeline = function(user, systemId, containerId, cb) {
+  var timeline = function(systemId, containerId, user, cb) {
     cbt.trackById('list timeline', cb);
-    _client.write('list timeline ' + user + ' ' + systemId + ' ' + containerId + '\n');
+    _client.write('list timeline ' + systemId + ' ' + containerId + ' ' + user + '\n');
   };
 
 
