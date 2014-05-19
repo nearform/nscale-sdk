@@ -144,16 +144,16 @@ module.exports = function() {
 
 
 
-  var deploySystem = function(systemId, cb) {
+  var deploySystem = function(systemId, revisionId, cb) {
     cbt.trackById('deploy system', cb);
-    _client.write('deploy system ' + systemId + '\n');
+    _client.write('deploy system ' + systemId + ' ' + revisionId + '\n');
   };
 
 
 
-  var deployAll = function(systemId, cb) {
+  var deployAll = function(systemId, revisionId, cb) {
     cbt.trackById('deploy all', cb);
-    _client.write('deploy all ' + systemId + '\n');
+    _client.write('deploy all ' + systemId + ' ' + revisionId + '\n');
   };
 
 
