@@ -46,12 +46,12 @@ module.exports = function() {
 
           if (json.responseType === 'stdout') {
             if (_stdoutCb) {
-              _stdoutCb(json.stdout);
+              _stdoutCb(json);
             }
           }
           else if (json.responseType === 'stderr') {
             if (_stderrCb) {
-              _stderrCb(json.stderr);
+              _stderrCb(json);
             }
           }
           else if (json.responseType === 'response') {
