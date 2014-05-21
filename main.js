@@ -89,6 +89,13 @@ module.exports = function() {
 
 
 
+  var getDeployed = function(systemId, cb) {
+    cbt.trackById('get deployed', cb);
+    _client.write('get deployed ' + systemId + '\n');
+  };
+
+
+
   var deleteSystem = function(systemId, cb) {
     cbt.trackById('delete system', cb);
     _client.write('delete system ' + systemId + '\n');
@@ -208,6 +215,7 @@ module.exports = function() {
     createSystem: createSystem,
     listSystems: listSystems,
     getSystem: getSystem,
+    getDeployed: getDeployed,
     putSystem: putSystem,
     deleteSystem: deleteSystem,
 
