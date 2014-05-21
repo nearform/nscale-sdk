@@ -151,9 +151,9 @@ module.exports = function() {
 
 
 
-  var deploySystem = function(systemId, revisionId, cb) {
+  var deploySystem = function(user, systemId, revisionId, cb) {
     cbt.trackById('deploy system', cb);
-    _client.write('deploy system ' + systemId + ' ' + revisionId + '\n');
+    _client.write('deploy system ' + user + ' ' + systemId + ' ' + revisionId + '\n');
   };
 
 
