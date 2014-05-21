@@ -103,9 +103,9 @@ module.exports = function() {
 
 
 
-  var putSystem = function(systemJson, cb) {
+  var putSystem = function(user, systemJson, cb) {
     cbt.trackById('put system', cb);
-    _client.write('put system\n');
+    _client.write('put system ' + user + '\n');
     _client.write(systemJson + '\n');
     _client.write('END\n');
   };
@@ -128,9 +128,9 @@ module.exports = function() {
 
 
 
-  var putContainer = function(systemId, containerJson, cb) {
+  var putContainer = function(user, systemId, containerJson, cb) {
     cbt.trackById('put container', cb);
-    _client.write('put container ' + systemId + '\n');
+    _client.write('put container ' + user + ' ' + systemId + '\n');
     _client.write(containerJson + '\n');
     _client.write('END\n');
   };
