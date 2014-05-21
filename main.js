@@ -144,9 +144,9 @@ module.exports = function() {
 
 
 
-  var buildContainer = function(systemId, containerId, cb) {
+  var buildContainer = function(user, systemId, containerId, cb) {
     cbt.trackById('build container', cb);
-    _client.write('build container ' + systemId + ' ' + containerId + '\n');
+    _client.write('build container ' + user + ' ' + systemId + ' ' + containerId + '\n');
   };
 
 
