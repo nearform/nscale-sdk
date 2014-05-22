@@ -119,9 +119,9 @@ module.exports = function() {
 
 
 
-  var addContainer = function(systemId, containerJson, cb) {
+  var addContainer = function(user, systemId, containerJson, cb) {
     cbt.trackById('add container', cb);
-    _client.write('add container ' + systemId + '\n');
+    _client.write('add container ' + user + ' ' + systemId + '\n');
     _client.write(containerJson + '\n');
     _client.write('END\n');
   };
