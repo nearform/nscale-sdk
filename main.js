@@ -96,9 +96,9 @@ module.exports = function() {
 
 
 
-  var deleteSystem = function(systemId, cb) {
+  var deleteSystem = function(user, systemId, cb) {
     cbt.trackById('delete system', cb);
-    _client.write('delete system ' + systemId + '\n');
+    _client.write('delete system ' + user + ' ' + systemId + '\n');
   };
 
 
@@ -137,9 +137,9 @@ module.exports = function() {
 
 
 
-  var deleteContainer = function(systemId, containerId, cb) {
+  var deleteContainer = function(user, systemId, containerId, cb) {
     cbt.trackById('delete container', cb);
-    _client.write('delete container ' + systemId + ' ' + containerId + '\n');
+    _client.write('delete container ' + user + ' ' + systemId + ' ' + containerId + '\n');
   };
 
 
