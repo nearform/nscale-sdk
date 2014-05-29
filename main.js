@@ -28,9 +28,20 @@ module.exports = function() {
   var _stdoutCb;
   var _stderrCb;
 
+  var token = function(token, cb) {
+    cbt.trackById('token ' + token, cb);
+    _client.write('token ' + token + '\n');
+  }
+
   var connect = function(options, cb) {
     _client = net.connect(options, function() {
-      cb();
+      if (options.token) {
+        token(options.token, function() {
+          cb();
+        })
+      } else {
+        cb();
+      }
     });
 
     _client.on('data', function(data) {
@@ -65,6 +76,11 @@ module.exports = function() {
     _client.on('end', function() {
     });
   };
+
+  var login = function(username, password, cb) {
+    cbt.trackById('login ' + username, cb);
+    _client.write('login ' + username + ' ' + password + '\n');
+  }
 
 
 
@@ -211,6 +227,8 @@ module.exports = function() {
 
   return {
     connect: connect,
+    login: login,
+    token: token,
     quit: quit,
     createSystem: createSystem,
     listSystems: listSystems,
