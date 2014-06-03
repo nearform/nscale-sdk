@@ -27,6 +27,7 @@ module.exports = function() {
   var _client;
   var _stdoutCb;
   var _stderrCb;
+  var doc = '';
 
   var connect = function(options, cb) {
     _client = net.connect(options, function() {
@@ -39,24 +40,30 @@ module.exports = function() {
       var callback;
       var json;
 
-      lines = str.split('\n');
+      doc += str;
+      lines = doc.split('\n');
       _.each(lines, function(line) {
         if (line.length > 0) {
-          json = JSON.parse(line);
-
-          if (json.responseType === 'stdout') {
-            if (_stdoutCb) {
-              _stdoutCb(json);
+          try {
+            json = JSON.parse(line);
+            if (json.responseType === 'stdout') {
+              if (_stdoutCb) {
+                _stdoutCb(json);
+              }
             }
-          }
-          else if (json.responseType === 'stderr') {
-            if (_stderrCb) {
-              _stderrCb(json);
+            else if (json.responseType === 'stderr') {
+              if (_stderrCb) {
+                _stderrCb(json);
+              }
             }
+            else if (json.responseType === 'response') {
+              callback = cbt.fetch(json.request);
+              callback(json.response);
+            }
+            doc = '';
           }
-          else if (json.responseType === 'response') {
-            callback = cbt.fetch(json.request);
-            callback(json.response);
+          catch (e) {
+            // parse failed doc incomplete swallow exception 
           }
         }
       });
