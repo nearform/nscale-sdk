@@ -96,16 +96,23 @@ module.exports = function() {
 
 
 
-  var deleteSystem = function(systemId, cb) {
-    cbt.trackById('delete system', cb);
-    _client.write('delete system ' + systemId + '\n');
+  var getDeployed = function(systemId, cb) {
+    cbt.trackById('get deployed', cb);
+    _client.write('get deployed ' + systemId + '\n');
   };
 
 
 
-  var putSystem = function(systemJson, cb) {
+  var deleteSystem = function(user, systemId, cb) {
+    cbt.trackById('delete system', cb);
+    _client.write('delete system ' + user + ' ' + systemId + '\n');
+  };
+
+
+
+  var putSystem = function(user, systemJson, cb) {
     cbt.trackById('put system', cb);
-    _client.write('put system\n');
+    _client.write('put system ' + user + '\n');
     _client.write(systemJson + '\n');
     _client.write('END\n');
   };
@@ -119,41 +126,41 @@ module.exports = function() {
 
 
 
-  var addContainer = function(systemId, containerJson, cb) {
+  var addContainer = function(user, systemId, containerJson, cb) {
     cbt.trackById('add container', cb);
-    _client.write('add container ' + systemId + '\n');
+    _client.write('add container ' + user + ' ' + systemId + '\n');
     _client.write(containerJson + '\n');
     _client.write('END\n');
   };
 
 
 
-  var putContainer = function(systemId, containerJson, cb) {
+  var putContainer = function(user, systemId, containerJson, cb) {
     cbt.trackById('put container', cb);
-    _client.write('put container ' + systemId + '\n');
+    _client.write('put container ' + user + ' ' + systemId + '\n');
     _client.write(containerJson + '\n');
     _client.write('END\n');
   };
 
 
 
-  var deleteContainer = function(systemId, containerId, cb) {
+  var deleteContainer = function(user, systemId, containerId, cb) {
     cbt.trackById('delete container', cb);
-    _client.write('delete container ' + systemId + ' ' + containerId + '\n');
+    _client.write('delete container ' + user + ' ' + systemId + ' ' + containerId + '\n');
   };
 
 
 
-  var buildContainer = function(systemId, containerId, cb) {
+  var buildContainer = function(user, systemId, containerId, cb) {
     cbt.trackById('build container', cb);
-    _client.write('build container ' + systemId + ' ' + containerId + '\n');
+    _client.write('build container ' + user + ' ' + systemId + ' ' + containerId + '\n');
   };
 
 
 
-  var deploySystem = function(systemId, revisionId, cb) {
+  var deploySystem = function(user, systemId, revisionId, cb) {
     cbt.trackById('deploy system', cb);
-    _client.write('deploy system ' + systemId + ' ' + revisionId + '\n');
+    _client.write('deploy system ' + user + ' ' + systemId + ' ' + revisionId + '\n');
   };
 
 
@@ -215,6 +222,7 @@ module.exports = function() {
     createSystem: createSystem,
     listSystems: listSystems,
     getSystem: getSystem,
+    getDeployed: getDeployed,
     putSystem: putSystem,
     deleteSystem: deleteSystem,
 
