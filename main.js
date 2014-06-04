@@ -29,17 +29,21 @@ module.exports = function() {
   var _stderrCb;
   var doc = '';
 
+
+
   var token = function(token, cb) {
     cbt.trackById('token ' + token, cb);
     _client.write('token ' + token + '\n');
-  }
+  };
+
+
 
   var connect = function(options, cb) {
     _client = net.connect(options, function() {
       if (options.token) {
         token(options.token, function() {
           cb();
-        })
+        });
       } else {
         cb();
       }
@@ -84,10 +88,12 @@ module.exports = function() {
     });
   };
 
+
+
   var login = function(username, password, cb) {
     cbt.trackById('login ' + username, cb);
     _client.write('login ' + username + ' ' + password + '\n');
-  }
+  };
 
 
 
