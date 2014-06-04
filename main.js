@@ -78,7 +78,7 @@ module.exports = function() {
             doc = '';
           }
           catch (e) {
-            // parse failed doc incomplete swallow exception 
+            // parse failed doc incomplete swallow exception
           }
         }
       });
@@ -95,6 +95,11 @@ module.exports = function() {
     _client.write('login ' + username + ' ' + password + '\n');
   };
 
+
+  var githublogin = function(githubId, accessToken, cb) {
+    cbt.trackById('githublogin ' + githubId, cb);
+    _client.write('githublogin ' + githubId + ' ' + accessToken + '\n');
+  };
 
 
   var listSystems = function(cb) {
@@ -241,6 +246,7 @@ module.exports = function() {
   return {
     connect: connect,
     login: login,
+    githublogin: githublogin,
     token: token,
     quit: quit,
     createSystem: createSystem,
