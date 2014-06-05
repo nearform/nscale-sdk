@@ -96,9 +96,9 @@ module.exports = function() {
   };
 
 
-  var githublogin = function(githubId, accessToken, cb) {
-    cbt.trackById('githublogin ' + githubId, cb);
-    _client.write('githublogin ' + githubId + ' ' + accessToken + '\n');
+  var githublogin = function(accessToken, cb) {
+    cbt.trackById('githublogin', cb);
+    _client.write('githublogin ' + accessToken + '\n');
   };
 
 
