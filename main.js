@@ -207,7 +207,7 @@ module.exports = function() {
 
 
   var getRevision = function(systemId, revisionId, cb) {
-    cbt.trackById('get revision ', cb);
+    cbt.trackById('get revision', cb);
     _client.write('get revision ' + systemId + ' ' + revisionId + '\n');
   };
 
