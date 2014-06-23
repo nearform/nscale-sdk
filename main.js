@@ -192,6 +192,13 @@ module.exports = function() {
 
 
 
+  var previewSystemDeploy = function(systemId, revisionId, cb) {
+    cbt.trackById('preview system', cb);
+    _client.write('preview system ' + systemId + ' ' + revisionId + '\n');
+  };
+
+
+
   var deployAll = function(systemId, revisionId, cb) {
     cbt.trackById('deploy all', cb);
     _client.write('deploy all ' + systemId + ' ' + revisionId + '\n');
@@ -262,6 +269,7 @@ module.exports = function() {
     listContainers: listContainers,
     buildContainer: buildContainer,
     deploySystem: deploySystem,
+    previewSystemDeploy: previewSystemDeploy,
     deployAll: deployAll,
     ioHandlers: ioHandlers,
 
