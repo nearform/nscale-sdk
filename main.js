@@ -116,9 +116,30 @@ module.exports = function() {
 
 
 
+  var cloneSystem = function(url, cb) {
+    cbt.trackById('clone system', cb);
+    _client.write('clone system ' + url + '\n');
+  };
+
+
+
+  var addRemote = function(systemId, url, cb) {
+    cbt.trackById('add remote', cb);
+    _client.write('add remote ' + systemId + ' ' + url + '\n');
+  };
+
+
+
   var getSystem = function(systemId, cb) {
     cbt.trackById('get system', cb);
     _client.write('get system ' + systemId + '\n');
+  };
+
+
+
+  var syncSystem = function(systemId, cb) {
+    cbt.trackById('sync system', cb);
+    _client.write('sync system ' + systemId + '\n');
   };
 
 
@@ -220,9 +241,9 @@ module.exports = function() {
 
 
 
-  var timeline = function(systemId, containerId, cb) {
+  var timeline = function(systemId, cb) {
     cbt.trackById('list timeline', cb);
-    _client.write('list timeline ' + systemId + ' ' + containerId + ' ' + '\n');
+    _client.write('list timeline ' + systemId + '\n');
   };
 
 
@@ -257,8 +278,11 @@ module.exports = function() {
     token: token,
     quit: quit,
     createSystem: createSystem,
+    cloneSystem: cloneSystem,
+    addRemote: addRemote,
     listSystems: listSystems,
     getSystem: getSystem,
+    syncSystem: syncSystem,
     getDeployed: getDeployed,
     putSystem: putSystem,
     deleteSystem: deleteSystem,
