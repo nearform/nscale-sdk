@@ -241,6 +241,13 @@ module.exports = function() {
 
 
 
+  var markRevision = function(systemId, revisionId, cb) {
+    cbt.trackById('mark revision', cb);
+    _client.write('mark revision ' + systemId + ' ' + revisionId + '\n');
+  };
+
+
+
   var timeline = function(systemId, cb) {
     cbt.trackById('list timeline', cb);
     _client.write('list timeline ' + systemId + '\n');
@@ -299,6 +306,7 @@ module.exports = function() {
 
     listRevisions: listRevisions,
     getRevision: getRevision,
+    markRevision: markRevision,
 
     timeline: timeline,
     addToTimeline: addToTimeline
