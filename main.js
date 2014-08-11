@@ -263,6 +263,20 @@ module.exports = function() {
   };
 
 
+  
+  var analyseSystem = function(systemId, cb) {
+    cbt.trackById('analyse system', cb);
+    _client.write('analyse system ' + systemId + '\n');
+  };
+
+
+
+  var checkSystem = function(systemId, cb) {
+    cbt.trackById('check system', cb);
+    _client.write('check system ' + systemId + '\n');
+  };
+
+
 
   var quit = function(cb) {
     cbt.trackById('quit', cb);
@@ -309,7 +323,10 @@ module.exports = function() {
     markRevision: markRevision,
 
     timeline: timeline,
-    addToTimeline: addToTimeline
+    addToTimeline: addToTimeline,
+
+    analyseSystem: analyseSystem,
+    checkSystem: checkSystem
   };
 };
 
