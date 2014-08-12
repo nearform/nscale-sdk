@@ -59,11 +59,6 @@ module.exports = function() {
       lines = doc.split('\n');
       _.each(lines, function(line) {
         if (line.length > 0) {
-
-
-          console.log(line);
-
-
           try {
             json = JSON.parse(line);
             if (json.responseType === 'stdout') {
