@@ -59,6 +59,11 @@ module.exports = function() {
       lines = doc.split('\n');
       _.each(lines, function(line) {
         if (line.length > 0) {
+
+
+          console.log(line);
+
+
           try {
             json = JSON.parse(line);
             if (json.responseType === 'stdout') {
@@ -264,9 +269,9 @@ module.exports = function() {
 
 
   
-  var analyseSystem = function(systemId, cb) {
-    cbt.trackById('analyse system', cb);
-    _client.write('analyse system ' + systemId + '\n');
+  var analyzeSystem = function(systemId, cb) {
+    cbt.trackById('analyze system', cb);
+    _client.write('analyze system ' + systemId + '\n');
   };
 
 
@@ -325,7 +330,7 @@ module.exports = function() {
     timeline: timeline,
     addToTimeline: addToTimeline,
 
-    analyseSystem: analyseSystem,
+    analyzeSystem: analyzeSystem,
     checkSystem: checkSystem
   };
 };
