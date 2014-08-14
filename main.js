@@ -103,15 +103,15 @@ module.exports = function() {
 
 
   var listSystems = function(cb) {
-    cbt.trackById('list systems', cb);
-    _client.write('list systems\n');
+    cbt.trackById('system list', cb);
+    _client.write('system list\n');
   };
 
 
 
   var createSystem = function(name, namespace, cb) {
-    cbt.trackById('create system', cb);
-    _client.write('create system ' + name + ' ' + namespace + '\n');
+    cbt.trackById('system create', cb);
+    _client.write('system create ' + name + ' ' + namespace + '\n');
   };
 
 
@@ -124,15 +124,15 @@ module.exports = function() {
 
 
   var addRemote = function(systemId, url, cb) {
-    cbt.trackById('add remote', cb);
-    _client.write('add remote ' + systemId + ' ' + url + '\n');
+    cbt.trackById('remote add', cb);
+    _client.write('remote add ' + systemId + ' ' + url + '\n');
   };
 
 
 
   var getSystem = function(systemId, cb) {
-    cbt.trackById('get system', cb);
-    _client.write('get system ' + systemId + '\n');
+    cbt.trackById('system get', cb);
+    _client.write('system get' + systemId + '\n');
   };
 
 
@@ -145,22 +145,22 @@ module.exports = function() {
 
 
   var getDeployed = function(systemId, cb) {
-    cbt.trackById('get deployed', cb);
-    _client.write('get deployed ' + systemId + '\n');
+    cbt.trackById('system deployed', cb);
+    _client.write('system deployed ' + systemId + '\n');
   };
 
 
-
-  var deleteSystem = function(systemId, cb) {
-    cbt.trackById('delete system', cb);
-    _client.write('delete system ' + systemId + '\n');
-  };
+  // disabled - @mcollina
+  //var deleteSystem = function(systemId, cb) {
+  //  cbt.trackById('system delete', cb);
+  //  _client.write('system delete ' + systemId + '\n');
+  //};
 
 
 
   var putSystem = function(systemJson, cb) {
-    cbt.trackById('put system', cb);
-    _client.write('put system ' + '\n');
+    cbt.trackById('system put', cb);
+    _client.write('system put' + '\n');
     _client.write(systemJson + '\n');
     _client.write('END\n');
   };
@@ -168,15 +168,15 @@ module.exports = function() {
 
 
   var listContainers = function(systemId, cb) {
-    cbt.trackById('list containers', cb);
-    _client.write('list containers ' + systemId + '\n');
+    cbt.trackById('container list', cb);
+    _client.write('container list ' + systemId + '\n');
   };
 
 
 
   var addContainer = function(systemId, containerJson, cb) {
-    cbt.trackById('add container', cb);
-    _client.write('add container ' + systemId + '\n');
+    cbt.trackById('container', cb);
+    _client.write('container add ' + systemId + '\n');
     _client.write(containerJson + '\n');
     _client.write('END\n');
   };
@@ -184,8 +184,8 @@ module.exports = function() {
 
 
   var putContainer = function(systemId, containerJson, cb) {
-    cbt.trackById('put container', cb);
-    _client.write('put container ' + systemId + '\n');
+    cbt.trackById('container put', cb);
+    _client.write('container put ' + systemId + '\n');
     _client.write(containerJson + '\n');
     _client.write('END\n');
   };
@@ -193,15 +193,15 @@ module.exports = function() {
 
 
   var deleteContainer = function(systemId, containerId, cb) {
-    cbt.trackById('delete container', cb);
-    _client.write('delete container ' + systemId + ' ' + containerId + '\n');
+    cbt.trackById('container delete', cb);
+    _client.write('container delete ' + systemId + ' ' + containerId + '\n');
   };
 
 
 
   var buildContainer = function(systemId, containerId, cb) {
-    cbt.trackById('build container', cb);
-    _client.write('build container ' + systemId + ' ' + containerId + '\n');
+    cbt.trackById('container build', cb);
+    _client.write('container build ' + systemId + ' ' + containerId + '\n');
   };
 
 
@@ -214,43 +214,37 @@ module.exports = function() {
 
 
   var previewSystemDeploy = function(systemId, revisionId, cb) {
-    cbt.trackById('preview system', cb);
-    _client.write('preview system ' + systemId + ' ' + revisionId + '\n');
+    cbt.trackById('revision preview', cb);
+    _client.write('revision preview ' + systemId + ' ' + revisionId + '\n');
   };
 
-
-
-  var deployAll = function(systemId, revisionId, cb) {
-    cbt.trackById('deploy all', cb);
-    _client.write('deploy all ' + systemId + ' ' + revisionId + '\n');
-  };
 
 
 
   var listRevisions = function(systemId, cb) {
-    cbt.trackById('list revisions', cb);
-    _client.write('list revisions ' + systemId + '\n');
+    cbt.trackById('revision list', cb);
+    _client.write('revision list ' + systemId + '\n');
   };
 
 
 
   var getRevision = function(systemId, revisionId, cb) {
-    cbt.trackById('get revision', cb);
-    _client.write('get revision ' + systemId + ' ' + revisionId + '\n');
+    cbt.trackById('revision get', cb);
+    _client.write('revision get ' + systemId + ' ' + revisionId + '\n');
   };
 
 
 
   var markRevision = function(systemId, revisionId, cb) {
-    cbt.trackById('mark revision', cb);
-    _client.write('mark revision ' + systemId + ' ' + revisionId + '\n');
+    cbt.trackById('revision mark', cb);
+    _client.write('revision mark ' + systemId + ' ' + revisionId + '\n');
   };
 
 
 
   var timeline = function(systemId, cb) {
-    cbt.trackById('list timeline', cb);
-    _client.write('list timeline ' + systemId + '\n');
+    cbt.trackById('timeline list', cb);
+    _client.write('timeline list ' + systemId + '\n');
   };
 
 
@@ -263,17 +257,17 @@ module.exports = function() {
   };
 
 
-  
+
   var analyzeSystem = function(systemId, cb) {
-    cbt.trackById('analyze system', cb);
-    _client.write('analyze system ' + systemId + '\n');
+    cbt.trackById('system analyze', cb);
+    _client.write('system analyze ' + systemId + '\n');
   };
 
 
 
   var checkSystem = function(systemId, cb) {
-    cbt.trackById('check system', cb);
-    _client.write('check system ' + systemId + '\n');
+    cbt.trackById('system check', cb);
+    _client.write('system check ' + systemId + '\n');
   };
 
 
@@ -306,7 +300,9 @@ module.exports = function() {
     syncSystem: syncSystem,
     getDeployed: getDeployed,
     putSystem: putSystem,
-    deleteSystem: deleteSystem,
+
+    // disabled by @mcollina
+    //deleteSystem: deleteSystem,
 
     putContainer: putContainer,
     deleteContainer: deleteContainer,
@@ -315,7 +311,6 @@ module.exports = function() {
     buildContainer: buildContainer,
     deploySystem: deploySystem,
     previewSystemDeploy: previewSystemDeploy,
-    deployAll: deployAll,
     ioHandlers: ioHandlers,
 
     listRevisions: listRevisions,
