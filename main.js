@@ -132,7 +132,7 @@ module.exports = function() {
 
   var getSystem = function(systemId, cb) {
     cbt.trackById('system get', cb);
-    _client.write('system get' + systemId + '\n');
+    _client.write('system get ' + systemId + '\n');
   };
 
 
