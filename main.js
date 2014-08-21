@@ -249,14 +249,6 @@ module.exports = function() {
 
 
 
-  var addToTimeline = function(timelineJson, cb) {
-    cbt.trackById('add timeline', cb);
-    _client.write('add timeline\n');
-    _client.write(timelineJson + '\n');
-    _client.write('END\n');
-  };
-
-
 
   var analyzeSystem = function(systemId, cb) {
     cbt.trackById('system analyze', cb);
@@ -318,7 +310,6 @@ module.exports = function() {
     markRevision: markRevision,
 
     timeline: timeline,
-    addToTimeline: addToTimeline,
 
     analyzeSystem: analyzeSystem,
     checkSystem: checkSystem
