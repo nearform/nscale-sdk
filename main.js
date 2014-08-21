@@ -117,8 +117,8 @@ module.exports = function() {
 
 
   var cloneSystem = function(url, cb) {
-    cbt.trackById('clone system', cb);
-    _client.write('clone system ' + url + '\n');
+    cbt.trackById('system clone', cb);
+    _client.write('system clone ' + url + '\n');
   };
 
 
