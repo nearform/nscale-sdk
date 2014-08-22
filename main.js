@@ -32,7 +32,7 @@ module.exports = function() {
 
 
   var token = function(token, cb) {
-    cbt.trackById('token ' + token, cb);
+    cbt.trackById('token', cb);
     _client.write('token ' + token + '\n');
   };
 
@@ -91,7 +91,7 @@ module.exports = function() {
 
 
   var login = function(username, password, cb) {
-    cbt.trackById('login ' + username, cb);
+    cbt.trackById('login', cb);
     _client.write('login ' + username + ' ' + password + '\n');
   };
 
@@ -138,8 +138,8 @@ module.exports = function() {
 
 
   var syncSystem = function(systemId, cb) {
-    cbt.trackById('sync system', cb);
-    _client.write('sync system ' + systemId + '\n');
+    cbt.trackById('system sync', cb);
+    _client.write('system sync ' + systemId + '\n');
   };
 
 
