@@ -44,7 +44,8 @@ module.exports = function() {
         token(options.token, function() {
           cb();
         });
-      } else {
+      }
+      else {
         cb();
       }
     });
@@ -206,14 +207,14 @@ module.exports = function() {
 
 
 
-  var deploySystem = function(systemId, revisionId, cb) {
-    cbt.trackById('deploy system', cb);
-    _client.write('deploy system ' + systemId + ' ' + revisionId + '\n');
+  var deployRevision = function(systemId, revisionId, cb) {
+    cbt.trackById('revision deploy', cb);
+    _client.write('revision deploy ' + systemId + ' ' + revisionId + '\n');
   };
 
 
 
-  var previewSystemDeploy = function(systemId, revisionId, cb) {
+  var previewRevision = function(systemId, revisionId, cb) {
     cbt.trackById('revision preview', cb);
     _client.write('revision preview ' + systemId + ' ' + revisionId + '\n');
   };
@@ -301,8 +302,8 @@ module.exports = function() {
     addContainer: addContainer,
     listContainers: listContainers,
     buildContainer: buildContainer,
-    deploySystem: deploySystem,
-    previewSystemDeploy: previewSystemDeploy,
+    deployRevision: deployRevision,
+    previewRevision: previewRevision,
     ioHandlers: ioHandlers,
 
     listRevisions: listRevisions,
