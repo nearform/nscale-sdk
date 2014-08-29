@@ -1,6 +1,10 @@
-# nfd-sdk
+# nscale-sdk
 
-Client side command protocol for nfd. 
+Client side command protocol for
+[nscale](http://github.com/nearform/nscale).
 
-## Kernel
+License
+-------
+
+Artistic License 2.0
 
