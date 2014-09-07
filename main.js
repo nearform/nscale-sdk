@@ -265,6 +265,13 @@ module.exports = function() {
 
 
 
+  var fixSystem = function(systemId, cb) {
+    cbt.trackById('system fix', cb);
+    _client.write('system fix ' + systemId + '\n');
+  };
+
+
+
   var quit = function(cb) {
     cbt.trackById('quit', cb);
     _client.write('quit\n');
@@ -293,6 +300,7 @@ module.exports = function() {
     syncSystem: syncSystem,
     getDeployed: getDeployed,
     putSystem: putSystem,
+    fixSystem: fixSystem,
 
     // disabled by @mcollina
     //deleteSystem: deleteSystem,
