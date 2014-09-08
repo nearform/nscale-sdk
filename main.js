@@ -110,16 +110,16 @@ module.exports = function() {
 
 
 
-  var createSystem = function(name, namespace, cb) {
+  var createSystem = function(name, namespace, cwd, cb) {
     cbt.trackById('system create', cb);
-    _client.write('system create ' + name + ' ' + namespace + '\n');
+    _client.write('system create ' + name + ' ' + namespace + ' ' + cwd + '\n');
   };
 
 
 
-  var cloneSystem = function(url, cb) {
+  var cloneSystem = function(url, cwd, cb) {
     cbt.trackById('system clone', cb);
-    _client.write('system clone ' + url + '\n');
+    _client.write('system clone ' + url + ' ' + cwd + '\n');
   };
 
 
