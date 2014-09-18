@@ -17,6 +17,7 @@
 var net = require('net');
 var cbt = require('pelger-cbt')();
 var _ = require('underscore');
+var quote = require('shell-quote').quote;
 
 
 
@@ -27,13 +28,16 @@ module.exports = function() {
   var _client;
   var _stdoutCb;
   var _stderrCb;
-  var doc = '';
+  var doc ='';
 
+  function write() {
+    _client.write(quote(_.toArray(arguments)) + '\n');
+  }
 
 
   var token = function(token, cb) {
     cbt.trackById('token', cb);
-    _client.write('token ' + token + '\n');
+    write('token', token);
   };
 
 
@@ -62,21 +66,21 @@ module.exports = function() {
         if (line.length > 0) {
           try {
             json = JSON.parse(line);
-            if (json.responseType === 'stdout') {
+            if (json.responseType ==='stdout') {
               if (_stdoutCb) {
                 _stdoutCb(json);
               }
             }
-            else if (json.responseType === 'stderr') {
+            else if (json.responseType ==='stderr') {
               if (_stderrCb) {
                 _stderrCb(json);
               }
             }
-            else if (json.responseType === 'response') {
+            else if (json.responseType ==='response') {
               callback = cbt.fetch(json.request);
               callback(json.response);
             }
-            doc = '';
+            doc ='';
           }
           catch (e) {
             // parse failed doc incomplete swallow exception
@@ -93,76 +97,68 @@ module.exports = function() {
 
   var login = function(username, password, cb) {
     cbt.trackById('login', cb);
-    _client.write('login ' + username + ' ' + password + '\n');
+    write('login', username, password);
   };
 
 
   var githublogin = function(accessToken, cb) {
     cbt.trackById('githublogin', cb);
-    _client.write('githublogin ' + accessToken + '\n');
+    write('githublogin', accessToken);
   };
 
 
   var listSystems = function(cb) {
     cbt.trackById('system list', cb);
-    _client.write('system list\n');
+    write('system', 'list');
   };
 
 
 
   var createSystem = function(name, namespace, cwd, cb) {
     cbt.trackById('system create', cb);
-    _client.write('system create ' + name + ' ' + namespace + ' ' + cwd + '\n');
+    write('system', 'create', name, namespace, cwd);
   };
 
 
 
   var cloneSystem = function(url, cwd, cb) {
     cbt.trackById('system clone', cb);
-    _client.write('system clone ' + url + ' ' + cwd + '\n');
+    write('system', 'clone', url, cwd);
   };
 
 
 
   var addRemote = function(systemId, url, cb) {
     cbt.trackById('remote add', cb);
-    _client.write('remote add ' + systemId + ' ' + url + '\n');
+    write('remote', 'add', systemId, url);
   };
 
 
 
   var getSystem = function(systemId, cb) {
     cbt.trackById('system get', cb);
-    _client.write('system get ' + systemId + '\n');
+    write('system', 'get', systemId);
   };
 
 
 
   var syncSystem = function(systemId, cb) {
     cbt.trackById('system sync', cb);
-    _client.write('system sync ' + systemId + '\n');
+    _client.write('system', 'sync', systemId);
   };
 
 
 
   var getDeployed = function(systemId, cb) {
     cbt.trackById('system deployed', cb);
-    _client.write('system deployed ' + systemId + '\n');
+    write('system', 'deployed', systemId);
   };
-
-
-  // disabled - @mcollina
-  //var deleteSystem = function(systemId, cb) {
-  //  cbt.trackById('system delete', cb);
-  //  _client.write('system delete ' + systemId + '\n');
-  //};
-
 
 
   var putSystem = function(systemJson, cb) {
     cbt.trackById('system put', cb);
-    _client.write('system put' + '\n');
-    _client.write(systemJson + '\n');
+    write('system', 'put');
+    _client.write(systemJson +'\n');
     _client.write('END\n');
   };
 
@@ -170,15 +166,15 @@ module.exports = function() {
 
   var listContainers = function(systemId, cb) {
     cbt.trackById('container list', cb);
-    _client.write('container list ' + systemId + '\n');
+    write('container', 'list', systemId);
   };
 
 
 
   var addContainer = function(systemId, containerJson, cb) {
     cbt.trackById('container', cb);
-    _client.write('container add ' + systemId + '\n');
-    _client.write(containerJson + '\n');
+    write('container', 'add', systemId);
+    _client.write(containerJson +'\n');
     _client.write('END\n');
   };
 
@@ -186,8 +182,8 @@ module.exports = function() {
 
   var putContainer = function(systemId, containerJson, cb) {
     cbt.trackById('container put', cb);
-    _client.write('container put ' + systemId + '\n');
-    _client.write(containerJson + '\n');
+    write('container', 'put', systemId);
+    _client.write(containerJson +'\n');
     _client.write('END\n');
   };
 
@@ -195,28 +191,28 @@ module.exports = function() {
 
   var deleteContainer = function(systemId, containerId, cb) {
     cbt.trackById('container delete', cb);
-    _client.write('container delete ' + systemId + ' ' + containerId + '\n');
+    write('container', 'delete', systemId, containerId);
   };
 
 
 
   var buildContainer = function(systemId, containerId, cb) {
     cbt.trackById('container build', cb);
-    _client.write('container build ' + systemId + ' ' + containerId + '\n');
+    write('container', 'build', systemId, containerId);
   };
 
 
 
   var deployRevision = function(systemId, revisionId, cb) {
     cbt.trackById('revision deploy', cb);
-    _client.write('revision deploy ' + systemId + ' ' + revisionId + '\n');
+    write('revision', 'deploy', systemId, revisionId);
   };
 
 
 
   var previewRevision = function(systemId, revisionId, cb) {
     cbt.trackById('revision preview', cb);
-    _client.write('revision preview ' + systemId + ' ' + revisionId + '\n');
+    write('revision', 'preview', systemId, revisionId);
   };
 
 
@@ -224,28 +220,28 @@ module.exports = function() {
 
   var listRevisions = function(systemId, cb) {
     cbt.trackById('revision list', cb);
-    _client.write('revision list ' + systemId + '\n');
+    write('revision', 'list', systemId);
   };
 
 
 
   var getRevision = function(systemId, revisionId, cb) {
     cbt.trackById('revision get', cb);
-    _client.write('revision get ' + systemId + ' ' + revisionId + '\n');
+    write('revision', 'get', systemId, revisionId);
   };
 
 
 
   var markRevision = function(systemId, revisionId, cb) {
     cbt.trackById('revision mark', cb);
-    _client.write('revision mark ' + systemId + ' ' + revisionId + '\n');
+    write('revision', 'mark', systemId, revisionId);
   };
 
 
 
   var timeline = function(systemId, cb) {
     cbt.trackById('timeline list', cb);
-    _client.write('timeline list ' + systemId + '\n');
+    write('timeline', 'list', systemId);
   };
 
 
@@ -253,28 +249,28 @@ module.exports = function() {
 
   var analyzeSystem = function(systemId, cb) {
     cbt.trackById('system analyze', cb);
-    _client.write('system analyze ' + systemId + '\n');
+    _client.write('system', 'analyze', systemId);
   };
 
 
 
   var checkSystem = function(systemId, cb) {
     cbt.trackById('system check', cb);
-    _client.write('system check ' + systemId + '\n');
+    _client.write('system', 'check', systemId);
   };
 
 
 
   var fixSystem = function(systemId, cb) {
     cbt.trackById('system fix', cb);
-    _client.write('system fix ' + systemId + '\n');
+    _client.write('system', 'fix', systemId);
   };
 
 
 
   var quit = function(cb) {
     cbt.trackById('quit', cb);
-    _client.write('quit\n');
+    write('quit');
   };
 
 

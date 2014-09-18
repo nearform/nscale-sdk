@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "pelger-cbt": "0.0.2",
+    "shell-quote": "^1.4.2",
     "underscore": "^1.6.0"
   },
   "main": "lib/main",
