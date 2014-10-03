@@ -144,7 +144,7 @@ module.exports = function() {
 
   var syncSystem = function(systemId, cb) {
     cbt.trackById('system sync', cb);
-    _client.write('system', 'sync', systemId);
+    write('system', 'sync', systemId);
   };
 
 
@@ -249,21 +249,21 @@ module.exports = function() {
 
   var analyzeSystem = function(systemId, cb) {
     cbt.trackById('system analyze', cb);
-    _client.write('system', 'analyze', systemId);
+    write('system', 'analyze', systemId);
   };
 
 
 
   var checkSystem = function(systemId, cb) {
     cbt.trackById('system check', cb);
-    _client.write('system', 'check', systemId);
+    write('system', 'check', systemId);
   };
 
 
 
   var fixSystem = function(systemId, cb) {
     cbt.trackById('system fix', cb);
-    _client.write('system', 'fix', systemId);
+    write('system', 'fix', systemId);
   };
 
 
