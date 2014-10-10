@@ -15,6 +15,7 @@
 'use strict';
 
 var net = require('net');
+var EventEmitter = require('events').EventEmitter;
 var Cbt = require('pelger-cbt');
 var _ = require('underscore');
 var quote = require('shell-quote').quote;
@@ -30,10 +31,27 @@ module.exports = function() {
   var _stderrCb;
   var doc ='';
   var cbt = new Cbt();
+  var ee = new EventEmitter();
+  var connected = false;
 
   function write() {
     _client.write(quote(_.toArray(arguments)) + '\n');
   }
+
+
+
+  var parseResponse = function(response, cb) {
+    if (response.err) {
+      var err = new Error(response.err.message || 'Uknown error');
+      Object.keys(response.err).forEach(function(key) {
+        err[key] = response.err[key];
+      });
+      return cb(err);
+    }
+
+    return cb(null, response);
+  };
+
 
 
   var token = function(token, cb) {
@@ -45,6 +63,7 @@ module.exports = function() {
 
   var connect = function(options, cb) {
     _client = net.connect(options, function() {
+      ee.connected = true;
       if (options.token) {
         token(options.token, function() {
           cb();
@@ -79,7 +98,7 @@ module.exports = function() {
             }
             else if (json.responseType ==='response') {
               callback = cbt.fetch(json.request);
-              callback(json.response);
+              parseResponse(json.response, callback);
             }
             doc ='';
           }
@@ -91,6 +110,13 @@ module.exports = function() {
     });
 
     _client.on('end', function() {
+      ee.connected = false;
+      ee.emit('end');
+    });
+
+    _client.on('error', function(err) {
+      ee.connected = false;
+      ee.emit('error', err);
     });
   };
 
@@ -270,7 +296,12 @@ module.exports = function() {
 
 
   var quit = function(cb) {
-    cbt.trackById('quit', cb);
+    function onquit(err, result) {
+      ee.connected = false;
+      cb(err, result);
+    }
+
+    cbt.trackById('quit', onquit);
     write('quit');
   };
 
@@ -283,7 +314,7 @@ module.exports = function() {
 
 
 
-  return {
+  _.each({
     connect: connect,
     login: login,
     githublogin: githublogin,
@@ -318,7 +349,13 @@ module.exports = function() {
     timeline: timeline,
 
     analyzeSystem: analyzeSystem,
-    checkSystem: checkSystem
-  };
+    checkSystem: checkSystem,
+
+    connected: false
+  }, function(value, key) {
+    ee[key] = value;
+  });
+
+  return ee;
 };
 
