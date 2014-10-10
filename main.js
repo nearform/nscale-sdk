@@ -15,7 +15,7 @@
 'use strict';
 
 var net = require('net');
-var cbt = require('pelger-cbt')();
+var Cbt = require('pelger-cbt');
 var _ = require('underscore');
 var quote = require('shell-quote').quote;
 
@@ -29,6 +29,7 @@ module.exports = function() {
   var _stdoutCb;
   var _stderrCb;
   var doc ='';
+  var cbt = new Cbt();
 
   function write() {
     _client.write(quote(_.toArray(arguments)) + '\n');
