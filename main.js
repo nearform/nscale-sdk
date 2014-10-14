@@ -268,6 +268,14 @@ module.exports = function() {
 
 
 
+  var compileSystem = function(systemId, platform, cb) {
+    cbt.trackById('system compile', cb);
+    console.log('----> compile');
+    write('system', 'compile', systemId, platform);
+  };
+
+
+
   var quit = function(cb) {
     cbt.trackById('quit', cb);
     write('quit');
@@ -297,6 +305,7 @@ module.exports = function() {
     getDeployed: getDeployed,
     putSystem: putSystem,
     fixSystem: fixSystem,
+    compileSystem: compileSystem,
 
     // disabled by @mcollina
     //deleteSystem: deleteSystem,
