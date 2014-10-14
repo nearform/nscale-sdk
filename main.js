@@ -270,7 +270,6 @@ module.exports = function() {
 
   var compileSystem = function(systemId, platform, cb) {
     cbt.trackById('system compile', cb);
-    console.log('----> compile');
     write('system', 'compile', systemId, platform);
   };
 
