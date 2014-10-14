@@ -215,6 +215,13 @@ module.exports = function() {
 
 
 
+  var buildAllContainers = function(systemId, cb) {
+    cbt.trackById('container buildall', cb);
+    write('container', 'buildall', systemId);
+  };
+
+
+
   var deployRevision = function(systemId, revisionId, cb) {
     cbt.trackById('revision deploy', cb);
     write('revision', 'deploy', systemId, revisionId);
@@ -331,6 +338,7 @@ module.exports = function() {
     addContainer: addContainer,
     listContainers: listContainers,
     buildContainer: buildContainer,
+    buildAllContainers: buildAllContainers,
     deployRevision: deployRevision,
     previewRevision: previewRevision,
     ioHandlers: ioHandlers,
