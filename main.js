@@ -40,15 +40,21 @@ module.exports = function() {
 
 
   var parseResponse = function(response, cb) {
+    var err;
     if (response && response.err) {
-      var err = new Error(response.err.message || 'Uknown error');
-      Object.keys(response.err).forEach(function(key) {
-        err[key] = response.err[key];
-      });
-      return cb(err);
+      if (typeof response.err === 'object') {
+        err = new Error(response.err.message);
+        Object.keys(response.err).forEach(function(key) {
+          err[key] = response.err[key];
+        });
+      } else if (typeof response.err === 'string') {
+        err = new Error(response.err);
+      } else {
+        err = new Error('Uknown error');
+      }
     }
 
-    return cb(null, response);
+    return cb(err, response);
   };
 
 
