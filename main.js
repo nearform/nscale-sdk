@@ -153,6 +153,13 @@ module.exports = function() {
 
 
 
+  var unlinkSystem = function(systemId, cb) {
+    cbt.trackById('system unlink', cb);
+    write('system', 'unlink', systemId);
+  };
+
+
+
   var addRemote = function(systemId, url, cb) {
     cbt.trackById('remote add', cb);
     write('remote', 'add', systemId, url);
@@ -335,6 +342,7 @@ module.exports = function() {
     createSystem: createSystem,
     cloneSystem: cloneSystem,
     linkSystem: linkSystem,
+    unlinkSystem: unlinkSystem,
     addRemote: addRemote,
     listSystems: listSystems,
     getSystem: getSystem,
