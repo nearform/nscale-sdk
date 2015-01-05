@@ -307,9 +307,9 @@ module.exports = function() {
 
 
 
-  var compileSystem = function(systemId, platform, cb) {
+  var compileSystem = function(systemId, cb) {
     cbt.trackById('system compile', cb);
-    write('system', 'compile', systemId, platform);
+    write('system', 'compile', systemId);
   };
 
 
