@@ -167,9 +167,9 @@ module.exports = function() {
 
 
 
-  var getSystem = function(systemId, cb) {
+  var getSystem = function(systemId, target, cb) {
     cbt.trackById('system get', cb);
-    write('system', 'get', systemId);
+    write('system', 'get', systemId, target);
   };
 
 
@@ -181,9 +181,9 @@ module.exports = function() {
 
 
 
-  var getDeployed = function(systemId, cb) {
+  var getDeployed = function(systemId, target, cb) {
     cbt.trackById('system deployed', cb);
-    write('system', 'deployed', systemId);
+    write('system', 'deployed', systemId, target);
   };
 
 
@@ -196,9 +196,9 @@ module.exports = function() {
 
 
 
-  var listContainers = function(systemId, cb) {
+  var listContainers = function(systemId, target, cb) {
     cbt.trackById('container list', cb);
-    write('container', 'list', systemId);
+    write('container', 'list', systemId, target);
   };
 
 
@@ -242,16 +242,16 @@ module.exports = function() {
 
 
 
-  var deployRevision = function(systemId, revisionId, cb) {
+  var deployRevision = function(systemId, revisionId, target, cb) {
     cbt.trackById('revision deploy', cb);
-    write('revision', 'deploy', systemId, revisionId);
+    write('revision', 'deploy', systemId, revisionId, target);
   };
 
 
 
-  var previewRevision = function(systemId, revisionId, cb) {
+  var previewRevision = function(systemId, revisionId, target, cb) {
     cbt.trackById('revision preview', cb);
-    write('revision', 'preview', systemId, revisionId);
+    write('revision', 'preview', systemId, revisionId, target);
   };
 
 
@@ -286,23 +286,23 @@ module.exports = function() {
 
 
 
-  var analyzeSystem = function(systemId, cb) {
+  var analyzeSystem = function(systemId, target, cb) {
     cbt.trackById('system analyze', cb);
-    write('system', 'analyze', systemId);
+    write('system', 'analyze', systemId, target);
   };
 
 
 
-  var checkSystem = function(systemId, cb) {
+  var checkSystem = function(systemId, target, cb) {
     cbt.trackById('system check', cb);
-    write('system', 'check', systemId);
+    write('system', 'check', systemId, target);
   };
 
 
 
-  var fixSystem = function(systemId, cb) {
+  var fixSystem = function(systemId, target, cb) {
     cbt.trackById('system fix', cb);
-    write('system', 'fix', systemId);
+    write('system', 'fix', systemId, target);
   };
 
 
