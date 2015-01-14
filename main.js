@@ -314,6 +314,34 @@ module.exports = function() {
 
 
 
+  var startMonkey = function(systemId, target, cb) {
+    cbt.trackById('system monkeystart', cb);
+    write('system', 'monkeystart', systemId, target);
+  };
+
+
+
+  var stopMonkey = function(systemId, target, cb) {
+    cbt.trackById('system monkeystop', cb);
+    write('system', 'monkeystop', systemId, target);
+  };
+
+
+
+  var startMonitor = function(systemId, target, cb) {
+    cbt.trackById('system monitorstart', cb);
+    write('system', 'monitorstart', systemId, target);
+  };
+
+
+
+  var stopMonitor = function(systemId, target, cb) {
+    cbt.trackById('system monitorstop', cb);
+    write('system', 'monitorstop', systemId, target);
+  };
+
+
+
   var quit = function(cb) {
     function onquit(err, result) {
       ee.connected = false;
@@ -373,6 +401,11 @@ module.exports = function() {
 
     analyzeSystem: analyzeSystem,
     checkSystem: checkSystem,
+
+    startMonkey: startMonkey,
+    stopMonkey: stopMonkey,
+    startMonitor: startMonitor,
+    stopMonitor: stopMonitor,
 
     connected: false
   }, function(value, key) {
