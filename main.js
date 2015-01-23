@@ -139,13 +139,6 @@ module.exports = function() {
 
 
 
-  var cloneSystem = function(url, cwd, cb) {
-    cbt.trackById('system clone', cb);
-    write('system', 'clone', url, cwd);
-  };
-
-
-
   var linkSystem = function(path, cwd, cb) {
     cbt.trackById('system link', cb);
     write('system', 'link', path, cwd);
@@ -160,23 +153,9 @@ module.exports = function() {
 
 
 
-  var addRemote = function(systemId, url, cb) {
-    cbt.trackById('remote add', cb);
-    write('remote', 'add', systemId, url);
-  };
-
-
-
   var getSystem = function(systemId, target, cb) {
     cbt.trackById('system get', cb);
     write('system', 'get', systemId, target);
-  };
-
-
-
-  var syncSystem = function(systemId, cb) {
-    cbt.trackById('system sync', cb);
-    write('system', 'sync', systemId);
   };
 
 
@@ -187,43 +166,10 @@ module.exports = function() {
   };
 
 
-  var putSystem = function(systemJson, cb) {
-    cbt.trackById('system put', cb);
-    write('system', 'put');
-    _client.write(systemJson +'\n');
-    _client.write('END\n');
-  };
-
-
 
   var listContainers = function(systemId, target, cb) {
     cbt.trackById('container list', cb);
     write('container', 'list', systemId, target);
-  };
-
-
-
-  var addContainer = function(systemId, containerJson, cb) {
-    cbt.trackById('container', cb);
-    write('container', 'add', systemId);
-    _client.write(containerJson +'\n');
-    _client.write('END\n');
-  };
-
-
-
-  var putContainer = function(systemId, containerJson, cb) {
-    cbt.trackById('container put', cb);
-    write('container', 'put', systemId);
-    _client.write(containerJson +'\n');
-    _client.write('END\n');
-  };
-
-
-
-  var deleteContainer = function(systemId, containerId, cb) {
-    cbt.trackById('container delete', cb);
-    write('container', 'delete', systemId, containerId);
   };
 
 
@@ -264,9 +210,9 @@ module.exports = function() {
 
 
 
-  var getRevision = function(systemId, revisionId, cb) {
+  var getRevision = function(systemId, revisionId, target, cb) {
     cbt.trackById('revision get', cb);
-    write('revision', 'get', systemId, revisionId);
+    write('revision', 'get', systemId, revisionId, target);
   };
 
 
@@ -340,24 +286,14 @@ module.exports = function() {
     token: token,
     quit: quit,
     createSystem: createSystem,
-    cloneSystem: cloneSystem,
     linkSystem: linkSystem,
     unlinkSystem: unlinkSystem,
-    addRemote: addRemote,
     listSystems: listSystems,
     getSystem: getSystem,
-    syncSystem: syncSystem,
     getDeployed: getDeployed,
-    putSystem: putSystem,
     fixSystem: fixSystem,
     compileSystem: compileSystem,
 
-    // disabled by @mcollina
-    //deleteSystem: deleteSystem,
-
-    putContainer: putContainer,
-    deleteContainer: deleteContainer,
-    addContainer: addContainer,
     listContainers: listContainers,
     buildContainer: buildContainer,
     buildAllContainers: buildAllContainers,
