@@ -153,13 +153,6 @@ module.exports = function() {
 
 
 
-  var getSystem = function(systemId, target, cb) {
-    cbt.trackById('system get', cb);
-    write('system', 'get', systemId, target);
-  };
-
-
-
   var getDeployed = function(systemId, target, cb) {
     cbt.trackById('system deployed', cb);
     write('system', 'deployed', systemId, target);
@@ -289,7 +282,6 @@ module.exports = function() {
     linkSystem: linkSystem,
     unlinkSystem: unlinkSystem,
     listSystems: listSystems,
-    getSystem: getSystem,
     getDeployed: getDeployed,
     fixSystem: fixSystem,
     compileSystem: compileSystem,
