@@ -167,16 +167,16 @@ module.exports = function() {
 
 
 
-  var buildContainer = function(systemId, containerId, cb) {
+  var buildContainer = function(systemId, containerId, revisionId, cb) {
     cbt.trackById('container build', cb);
-    write('container', 'build', systemId, containerId);
+    write('container', 'build', systemId, containerId, revisionId);
   };
 
 
 
-  var buildAllContainers = function(systemId, cb) {
+  var buildAllContainers = function(systemId, revisionId, cb) {
     cbt.trackById('container buildall', cb);
-    write('container', 'buildall', systemId);
+    write('container', 'buildall', systemId, revisionId);
   };
 
 
