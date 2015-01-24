@@ -160,9 +160,9 @@ module.exports = function() {
 
 
 
-  var listContainers = function(systemId, target, cb) {
+  var listContainers = function(systemId, cb) {
     cbt.trackById('container list', cb);
-    write('container', 'list', systemId, target);
+    write('container', 'list', systemId);
   };
 
 
