@@ -81,22 +81,20 @@ module.exports = function() {
 
     var jsonStream = new JSONStream();
     _client.pipe(jsonStream);
-    jsonStream.on('readable', function() {
+    jsonStream.on('data', function(json) {
       var json;
-      while((json = jsonStream.read()) !== null) {
-        if (json.responseType === 'stdout') {
-          if (_stdoutCb) {
-            _stdoutCb(json);
-          }
+      if (json.responseType === 'stdout') {
+        if (_stdoutCb) {
+          _stdoutCb(json);
         }
-        else if (json.responseType === 'stderr') {
-          if (_stderrCb) {
-            _stderrCb(json);
-          }
+      }
+      else if (json.responseType === 'stderr') {
+        if (_stderrCb) {
+          _stderrCb(json);
         }
-        else if (json.responseType === 'response') {
-          parseResponse(json.response, cbt.fetch(json.request));
-        }
+      }
+      else if (json.responseType === 'response') {
+        parseResponse(json.response, cbt.fetch(json.request));
       }
     });
 
@@ -160,9 +158,9 @@ module.exports = function() {
 
 
 
-  var listContainers = function(systemId, cb) {
+  var listContainers = function(systemId, revision, cb) {
     cbt.trackById('container list', cb);
-    write('container', 'list', systemId);
+    write('container', 'list', systemId, revision);
   };
 
 
