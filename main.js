@@ -244,9 +244,9 @@ module.exports = function() {
 
 
 
-  var compileSystem = function(systemId, cb) {
+  var compileSystem = function(systemId, comment, cb) {
     cbt.trackById('system compile', cb);
-    write('system', 'compile', systemId);
+    write('system', 'compile', systemId, comment);
   };
 
 
