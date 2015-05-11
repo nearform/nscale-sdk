@@ -244,6 +244,13 @@ module.exports = function() {
 
 
 
+  var stopSystem = function(systemId, target, cb) {
+    cbt.trackById('system stop', cb);
+    write('system', 'stop', systemId, target);
+  };
+
+
+
   var compileSystem = function(systemId, comment, cb) {
     cbt.trackById('system compile', cb);
     write('system', 'compile', systemId, comment);
@@ -282,6 +289,7 @@ module.exports = function() {
     listSystems: listSystems,
     getDeployed: getDeployed,
     fixSystem: fixSystem,
+    stopSystem: stopSystem,
     compileSystem: compileSystem,
 
     listContainers: listContainers,
