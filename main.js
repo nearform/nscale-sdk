@@ -251,6 +251,13 @@ module.exports = function() {
 
 
 
+  var commitSystem = function(systemId, comment, cb) {
+    cbt.trackById('system commit', cb);
+    write('system', 'commit', systemId, comment);
+  };
+
+
+
   var stopSystem = function(systemId, target, cb) {
     cbt.trackById('system stop', cb);
     write('system', 'stop', systemId, target);
@@ -270,7 +277,6 @@ module.exports = function() {
       ee.connected = false;
       cb(err, result);
     }
-
     cbt.trackById('quit', onquit);
     write('quit');
   };
@@ -299,6 +305,7 @@ module.exports = function() {
     infoSystem: infoSystem,
     stopSystem: stopSystem,
     compileSystem: compileSystem,
+    commitSystem: commitSystem,
 
     listContainers: listContainers,
     buildContainer: buildContainer,
