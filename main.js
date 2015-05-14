@@ -251,9 +251,9 @@ module.exports = function() {
 
 
 
-  var commitSystem = function(systemId, cb) {
+  var commitSystem = function(systemId, comment, cb) {
     cbt.trackById('system commit', cb);
-    write('system', 'commit', systemId);
+    write('system', 'commit', systemId, comment);
   };
 
 
@@ -277,7 +277,6 @@ module.exports = function() {
       ee.connected = false;
       cb(err, result);
     }
-
     cbt.trackById('quit', onquit);
     write('quit');
   };
